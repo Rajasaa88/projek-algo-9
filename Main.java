@@ -30,12 +30,12 @@ public class Main {
                   
                     break;
                 case 2:
-                    // Lihat leaderboard
+
                     System.out.println("Displaying the leaderboard...");
                   
                     break;
                 case 3:
-                    // Keluar
+
                     System.out.println("Exiting the game. Goodbye!");
                    
                     return;
