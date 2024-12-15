@@ -1,12 +1,12 @@
 public class Leaderboard {
-    private PlayerNode head;
+    private Node head;
 
     public void add(String name, int score) {
-        PlayerNode newNode = new PlayerNode(name, score);
+        Node newNode = new Node(name, score);
         if (head == null) {
             head = newNode;
         } else {
-            PlayerNode current = head;
+            Node current = head;
             while (current.next != null) {
                 current = current.next;
             }
@@ -20,17 +20,17 @@ public class Leaderboard {
             return; 
         }
 
-        PlayerNode sorted = null;
-        PlayerNode current = head;
+        Node sorted = null;
+        Node current = head;
 
         while (current != null) {
-            PlayerNode next = current.next;
+            Node next = current.next;
 
             if (sorted == null || sorted.score < current.score) {
                 current.next = sorted;
                 sorted = current;
             } else {
-                PlayerNode temp = sorted;
+                Node temp = sorted;
                 while (temp.next != null && temp.next.score >= current.score) {
                     temp = temp.next;
                 }
@@ -48,7 +48,7 @@ public class Leaderboard {
             return;
         }
         System.out.println("==== Leaderboard ====");
-        PlayerNode current = head;
+        Node current = head;
         int rank = 1;
         while (current != null) {
             System.out.println(rank + ". " + current.name + " - " + current.score);
@@ -63,7 +63,7 @@ public class Leaderboard {
             return;
         }
 
-        PlayerNode current = head;
+        Node current = head;
         while (current != null) {
             if (current.name.equalsIgnoreCase(name)) {
                 System.out.println("Pemain ditemukan: " + current.name + " dengan skor " + current.score);
