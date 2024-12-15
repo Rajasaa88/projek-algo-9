@@ -15,6 +15,7 @@ public class Leaderboard {
         sort(); 
     }
 
+    
     public void sort() {
         if (head == null || head.next == null) {
             return; 
