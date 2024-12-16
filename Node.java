@@ -4,11 +4,15 @@ public class Node {
     int score;  
     Node next; 
 
-    Node(int x, int y, String name, int score) {
+    Node(int x, int y) {
         this.x = x; 
         this.y = y; 
+        this.next = null; 
+    }
+
+    Node(String name, int score) {
         this.name = name;
         this.score = score;
-        this.next = null; 
+        this.next = null;
     }
 }

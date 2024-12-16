@@ -1,28 +1,35 @@
-//RANIA KERJAIN INI ._.<3
 class UndoRedo {
-    private Stack<String> undoStack = new Stack<>();
-    private Stack<String> redoStack = new Stack<>();
+    private Node undoTop;
+    private Node redoTop;
 
     public void performAction(String action) {
-        undoStack.push(action);
-        redoStack.clear();
+        Node newNode = new Node(action, 0);
+        newNode.next = undoTop;
+        undoTop = newNode;
+        redoTop = null;
     }
 
     public String undo() {
-        if (!undoStack.isEmpty()) {
-            String action = undoStack.pop();
-            redoStack.push(action);
-            return action;
+        if (undoTop == null) {
+            return "No actions to undo.";
         }
-        return "No actions to undo.";
+        String action = undoTop.name;
+        Node newNode = new Node(action, 0);
+        newNode.next = redoTop;
+        redoTop = newNode;
+        undoTop = undoTop.next;
+        return action;
     }
 
     public String redo() {
-        if (!redoStack.isEmpty()) {
-            String action = redoStack.pop();
-            undoStack.push(action);
-            return action;
+        if (redoTop == null) {
+            return "No actions to redo.";
         }
-        return "No actions to redo.";
+        String action = redoTop.name;
+        Node newNode = new Node(action, 0);
+        newNode.next = undoTop;
+        undoTop = newNode;
+        redoTop = redoTop.next;
+        return action;
     }
 }

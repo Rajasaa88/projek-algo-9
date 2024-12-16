@@ -1,16 +1,30 @@
-//RANIA KERJAIN INI ._.<3
 class TurnQueue {
-    private Queue<String> queue = new LinkedList<>();
+    private Node head;
+    private Node tail;
 
     public void addTurn(String name) {
-        queue.add(name);
+        Node newNode = new Node(name, 0);
+        if (tail == null) {
+            head = tail = newNode;
+        } else {
+            tail.next = newNode;
+            tail = newNode;
+        }
     }
 
     public String nextTurn() {
-        return queue.poll(); 
+        if (head == null) {
+            return null;
+        }
+        String name = head.name;
+        head = head.next;
+        if (head == null) {
+            tail = null;
+        }
+        return name;
     }
 
     public boolean isEmpty() {
-        return queue.isEmpty();
+        return head == null;
     }
 }

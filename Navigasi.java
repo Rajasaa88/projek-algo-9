@@ -15,9 +15,9 @@ public class Navigasi {
     }
 
     public void move(int x, int y) {
-    Node newNode = new Node(x, y);
-    newNode.next = head;
-    head = newNode;
+        Node newNode = new Node(x, y);
+        newNode.next = head;
+        head = newNode;
     }
 
     public void print() {
