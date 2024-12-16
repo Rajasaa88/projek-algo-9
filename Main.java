@@ -13,7 +13,7 @@ public class Main {
         System.out.println(" |_|  \\_\\___|\\__, |_| |_|\\__,_| |_| \\_|\\___/ \\_/ \\___|_| |_| |_| ");
         System.out.println("              __/ |                                              ");
         System.out.println("             |___/                                               ");
-        
+        System.out.println("");
 
         while (true) {
             System.out.println("Selamat datang di Regna Novem!");
