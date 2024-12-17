@@ -51,31 +51,31 @@ public class Navigasi {
             int choice = scanner.nextInt();
 
             switch (choice) {
-                case 1: // Up
+                case 1: 
                     playerY++;
                     move(playerX, playerY);
                     System.out.println("Anda bergerak ke atas. Posisi sekarang: (" + playerX + ", " + playerY + ")");
                     break;
-                case 2: // Down
+                case 2: 
                     playerY--;
                     move(playerX, playerY);
                     System.out.println("Anda bergerak ke bawah. Posisi sekarang: (" + playerX + ", " + playerY + ")");
                     break;
-                case 3: // Left
+                case 3: 
                     playerX--;
                     move(playerX, playerY);
                     System.out.println("Anda bergerak ke kiri. Posisi sekarang: (" + playerX + ", " + playerY + ")");
                     break;
-                case 4: // Right
+                case 4: 
                     playerX++;
                     move(playerX, playerY);
                     System.out.println("Anda bergerak ke kanan. Posisi sekarang: (" + playerX + ", " + playerY + ")");
                     break;
-                case 5: // Print Trail
+                case 5: 
                     System.out.println("Jejak perjalanan:");
                     print();
                     break;
-                case 6: // Exit
+                case 6: 
                     System.out.println("Keluar dari permainan. Terima kasih telah bermain!");
                     return;
                 default:
