@@ -28,6 +28,8 @@ public class Main {
             switch (choice) {
                 case 1:
                     System.out.println("Starting the game...");
+                    Navigasi navigasi = new Navigasi();
+                    navigasi.startGame();
                     break;
                 case 2:
                     leaderboard.display();
