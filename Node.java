@@ -1,18 +1,10 @@
 public class Node {
-    int x, y;
-    String name;
-    int score;  
-    Node next; 
+    public String quest;
+    public Node left, right;
 
-    Node(int x, int y) {
-        this.x = x; 
-        this.y = y; 
-        this.next = null; 
-    }
-
-    Node(String name, int score) {
-        this.name = name;
-        this.score = score;
-        this.next = null;
+    public Node(String quest) {
+        this.quest = quest;
+        this.left = null;
+        this.right = null;
     }
 }

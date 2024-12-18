@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Leaderboard leaderboard = new Leaderboard();
+        PenjagaKerajaan leaderboard = new PenjagaKerajaan();
 
         System.out.println("  _____                          _   _                           ");
         System.out.println(" |  __ \\                        | \\ | |");
@@ -15,35 +15,4 @@ public class Main {
         System.out.println("             |___/                                               ");
         System.out.println("");
 
-        while (true) {
-            System.out.println("Selamat datang di Regna Novem!");
-            System.out.println("1. Start Game");
-            System.out.println("2. View Leaderboard");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                System.out.print("Masukkan nama pemain: ");
-                String playerName = scanner.nextLine();
-
-                Navigasi navigasi = new Navigasi();
-                int steps = navigasi.startGame(); 
-                leaderboard.add(playerName, steps); 
-                break;
-                case 2:
-                    leaderboard.leaderboarddisplay();
-                    break;
-                case 3:
-                    System.out.println("Exiting the game. Goodbye!");
-                    scanner.close();
-                    return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
-    }
-}
+        
