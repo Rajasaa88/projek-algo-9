@@ -12,11 +12,11 @@ public class Player {
         this.name = name;
         this.hp = 200;
         this.attackPower = 40;
-        this.defense = 20;
+        this.defense = 35;
         this.score = 0;
         this.level = 1;
         this.xp = 0;
-        this.stamina = 5; 
+        this.stamina = 5; // Batas stamina untuk quest
     }
 
     public int attack() {
