@@ -27,9 +27,13 @@ public class Main {
 
             switch (choice) {
                 case 1:
-                    Navigasi navigasi = new Navigasi();
-                    navigasi.startGame();
-                    break;
+                System.out.print("Masukkan nama pemain: ");
+                String playerName = scanner.nextLine();
+
+                Navigasi navigasi = new Navigasi();
+                int steps = navigasi.startGame(); 
+                leaderboard.add(playerName, steps); 
+                break;
                 case 2:
                     leaderboard.display();
                     break;

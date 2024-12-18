@@ -2,6 +2,11 @@ import java.util.Scanner;
 
 public class Navigasi {
     private Node head;
+    private int steps; 
+
+    public Navigasi() {
+        this.steps = 0;
+    }
 
     public void add(int x, int y) {
         Node newNode = new Node(x, y);
@@ -20,6 +25,7 @@ public class Navigasi {
         Node newNode = new Node(x, y);
         newNode.next = head;
         head = newNode;
+        steps++;
     }
 
     public void print() {
@@ -30,7 +36,7 @@ public class Navigasi {
         }
     }
 
-    public void startGame() {
+    public int startGame() {
         Scanner scanner = new Scanner(System.in);
         int playerX = 0;
         int playerY = 0;
@@ -77,7 +83,7 @@ public class Navigasi {
                     break;
                 case 6: 
                     System.out.println("Keluar dari permainan. Terima kasih telah bermain!");
-                    return;
+                    return steps;
                 default:
                     System.out.println("Pilihan tidak valid. Silakan coba lagi.");
             }
