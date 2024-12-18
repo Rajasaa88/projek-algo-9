@@ -35,7 +35,7 @@ public class Main {
                 leaderboard.add(playerName, steps); 
                 break;
                 case 2:
-                    leaderboard.display();
+                    leaderboard.leaderboarddisplay();
                     break;
                 case 3:
                     System.out.println("Exiting the game. Goodbye!");

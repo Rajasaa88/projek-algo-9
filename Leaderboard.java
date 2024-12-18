@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Leaderboard {
+    Scanner scanner = new Scanner(System.in); 
     private Node head;
 
+    
     public void add(String name, int score) {
         Node newNode = new Node(name, score);
         if (head == null) {
@@ -15,6 +19,7 @@ public class Leaderboard {
         sort(); 
     }
 
+  
     public void sort() {
         if (head == null || head.next == null) {
             return; 
@@ -41,6 +46,7 @@ public class Leaderboard {
         }
         head = sorted; 
     }
+
 
     public void display() {
         if (head == null) {
@@ -72,5 +78,48 @@ public class Leaderboard {
             current = current.next;
         }
         System.out.println("Pemain dengan nama \"" + name + "\" tidak ditemukan.");
+    }
+
+    public void leaderboarddisplay() {
+        while (true) {
+            System.out.println("\n=== Menu Leaderboard ===");
+            System.out.println("1. Tambah Pemain");
+            System.out.println("2. Tampilkan Leaderboard");
+            System.out.println("3. Cari Pemain");
+            System.out.println("4. Keluar");
+            System.out.print("Pilih opsi: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Masukkan nama pemain: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Masukkan skor pemain: ");
+                    int score = scanner.nextInt();
+                    scanner.nextLine();
+                    add(name, score);
+                    System.out.println("Pemain berhasil ditambahkan.");
+                    break;
+
+                case 2:
+                    display();
+                    break;
+
+                case 3:
+                    System.out.print("Masukkan nama pemain yang dicari: ");
+                    String search = scanner.nextLine();
+                    find(search);
+                    break;
+
+                case 4:
+                    System.out.println("Keluar dari menu leaderboard.");
+                    return;
+
+                default:
+                    System.out.println("Pilihan tidak valid.");
+            }
+        }
     }
 }
