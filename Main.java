@@ -62,6 +62,7 @@ public class Main {
         eksplorQuest(root, player, navigasi);
 
         // Pertarungan dengan Penjaga Kerajaan
+        System.out.println("\nKamu menemukan Penjaga Kerajaan Cerberus!");
         PenjagaKerajaan penjaga = new PenjagaKerajaan("Cerberus", 500, 50, 30);
         fight(player, penjaga);
 

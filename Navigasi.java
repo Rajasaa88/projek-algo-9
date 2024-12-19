@@ -1,8 +1,6 @@
-import java.util.Stack;
-
 public class Navigasi {
-    private Stack<String> undoStack = new Stack<>();
-    private Stack<String> redoStack = new Stack<>();
+    private Stack undoStack = new Stack();
+    private Stack redoStack = new Stack();
 
     public void move(String quest) {
         undoStack.push(quest);
