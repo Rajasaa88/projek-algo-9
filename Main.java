@@ -13,7 +13,7 @@ public class Main {
         System.out.println("██╔══██╗██╔══╝  ██║   ██║██║╚██╗██║██╔══██║    ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══╝  ██║╚██╔╝██║");
         System.out.println("██║  ██║███████╗╚██████╔╝██║ ╚████║██║  ██║    ██║ ╚████║╚██████╔╝ ╚████╔╝ ███████╗██║ ╚═╝ ██║");
         System.out.println("╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝     ╚═╝");
-        System.out.println("                                        Kelompok 9                                       ");   
+        System.out.println("                                        Kelompok 9                                       ");
         System.out.println("==============================================================================================");
         while (true) {
             System.out.println("\n=== SELAMAT DATANG DI GAME PETUALANGAN REGNA NOVEM ===");
@@ -29,21 +29,21 @@ public class Main {
                     startGame();
                     break;
                 case 2:
-                leaderboard.display();
-                System.out.println("1. Search Player");
-                System.out.println("2. Kembali ke Menu Utama");
-                System.out.print("Pilih opsi: ");
-                int Opsi = scanner.nextInt();
-                scanner.nextLine(); 
-                if (Opsi == 1) {
-                    System.out.print("Masukkan nama pemain yang ingin dicari: ");
-                    String playerName = scanner.nextLine();
-                    leaderboard.searchPlayer(playerName);
-                } else if (Opsi == 2) {
+                    leaderboard.displayLeaderboard();
+                    System.out.println("1. Search Player");
+                    System.out.println("2. Kembali ke Menu Utama");
+                    System.out.print("Pilih opsi: ");
+                    int Opsi = scanner.nextInt();
+                    scanner.nextLine();
+                    if (Opsi == 1) {
+                        System.out.print("Masukkan nama pemain yang ingin dicari: ");
+                        String playerName = scanner.nextLine();
+                        leaderboard.searchPlayer(playerName);
+                    } else if (Opsi == 2) {
 
-                } else {
-                    System.out.println("Opsi tidak valid. Kembali ke menu utama.");
-                }
+                    } else {
+                        System.out.println("Opsi tidak valid. Kembali ke menu utama.");
+                    }
                     break;
                 case 3:
                     System.out.println("Terima kasih telah bermain pengelana sejati. Sampai jumpa!");
@@ -99,6 +99,26 @@ public class Main {
                     return;
                 default:
                     System.out.println("Aksi tidak valid. Silakan pilih lagi.");
+            }
+        }
+    }
+
+    static void collectQuests(Node node, List<String> quests) {
+        if (node == null) return;
+        quests.add(node.quest);
+        collectQuests(node.left, quests);
+        collectQuests(node.right, quests);
+    }
+
+    static void manualSort(List<String> quests) {
+        for (int i = 0; i < quests.size() - 1; i++) {
+            for (int j = 0; j < quests.size() - i - 1; j++) {
+                if (quests.get(j).compareTo(quests.get(j + 1)) > 0) {
+                    // Swap
+                    String temp = quests.get(j);
+                    quests.set(j, quests.get(j + 1));
+                    quests.set(j + 1, temp);
+                }
             }
         }
     }
@@ -162,12 +182,11 @@ public class Main {
             }
         }
     }
-       
-    
+
     static void fight(Player player, PenjagaKerajaan penjaga) {
         System.out.println("\n=== Pertarungan dengan " + penjaga.nama + " ===");
         penjaga.tampilkanStatus();
-    
+
         while (penjaga.HP > 0 && player.isAlive()) {
             System.out.println("\n=== Giliranmu ===");
             System.out.println("1. Serang");
@@ -175,7 +194,7 @@ public class Main {
             System.out.println("3. Istirahat");
             System.out.print("Pilih aksi: ");
             int aksi = scanner.nextInt();
-    
+
             if (aksi == 1) { // Serang
                 penjaga.HP -= player.attack();
                 System.out.println("Kamu menyerang " + penjaga.nama + "! HP Cerberus: " + penjaga.HP);
@@ -186,13 +205,13 @@ public class Main {
             } else {
                 System.out.println("Pilihan tidak valid.");
             }
-    
+
             if (penjaga.HP > 0) {
                 int damage = penjaga.serangPemain(player.defense);
                 player.takeDamage(damage);
             }
         }
-    
+
         if (player.hp <= 0) {
             System.out.println(player.name + ", kamu kalah! " + penjaga.nama + " terlalu kuat...");
             leaderboard.addScore(player.name, player.score);
@@ -202,7 +221,7 @@ public class Main {
             leaderboard.addScore(player.name, player.score);
         }
     }
-    
+
     static boolean miniGame() {
         System.out.println("\n=== Mini-Game: Tebak Angka ===");
         int number = random.nextInt(10) + 1;

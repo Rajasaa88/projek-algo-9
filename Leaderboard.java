@@ -18,11 +18,12 @@ public class Leaderboard {
         root = null;
     }
 
-    // Menambahkan skor ke tree
+    // Method to add a player's score
     public void addScore(String name, int score) {
         root = insert(root, name, score);
     }
 
+    // Insert a player's score into the binary tree (descending order)
     private Node insert(Node node, String name, int score) {
         if (node == null) {
             return new Node(name, score);
@@ -35,7 +36,8 @@ public class Leaderboard {
         return node;
     }
 
-    public void display() {
+    // Display the leaderboard (sorted in descending order)
+    public void displayLeaderboard() {
         System.out.println("\n=== Leaderboard ===");
         if (root == null) {
             System.out.println("Belum ada skor yang tercatat.\n");
@@ -46,6 +48,7 @@ public class Leaderboard {
         }
     }
 
+    // Recursive method to display leaderboard in descending order
     private void displayDescending(Node node) {
         if (node == null) return;
         displayDescending(node.left);
@@ -53,6 +56,7 @@ public class Leaderboard {
         displayDescending(node.right);
     }
 
+    // Search for a player by name
     public void searchPlayer(String name) {
         Node found = search(root, name);
         if (found != null) {
@@ -62,12 +66,15 @@ public class Leaderboard {
         }
     }
 
+    // Recursive method to search for a player by name
     private Node search(Node node, String name) {
         if (node == null) return null;
 
+        // Search in the right subtree first to get descending order
         Node foundNode = search(node.right, name);
         if (foundNode != null) return foundNode;
 
+        // If the current node matches the name, return it
         if (node.name.equals(name)) {
             return node;
         }
