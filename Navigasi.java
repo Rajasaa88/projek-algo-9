@@ -1,9 +1,13 @@
 public class Navigasi {
     private Stack undoStack = new Stack();
     private Stack redoStack = new Stack();
+    private String currentQuest;
 
     public void move(String quest) {
-        undoStack.push(quest);
+        if (currentQuest != null) {
+            undoStack.push(currentQuest);
+        }
+        currentQuest = quest;
         redoStack.clear();
     }
 
@@ -11,9 +15,9 @@ public class Navigasi {
         if (undoStack.isEmpty()) {
             System.out.println("Tidak ada langkah untuk di-undo.");
         } else {
-            String lastMove = undoStack.pop();
-            redoStack.push(lastMove);
-            System.out.println("Undo langkah terakhir: " + lastMove);
+            redoStack.push(currentQuest);
+            currentQuest = (String) undoStack.pop(); // Casting ke String
+            System.out.println("Undo langkah terakhir: " + currentQuest);
         }
     }
 
@@ -21,9 +25,13 @@ public class Navigasi {
         if (redoStack.isEmpty()) {
             System.out.println("Tidak ada langkah untuk di-redo.");
         } else {
-            String redoMove = redoStack.pop();
-            undoStack.push(redoMove);
-            System.out.println("Redo langkah: " + redoMove);
+            undoStack.push(currentQuest);
+            currentQuest = (String) redoStack.pop(); // Casting ke String
+            System.out.println("Redo langkah: " + currentQuest);
         }
+    }
+
+    public String getCurrentQuest() {
+        return currentQuest;
     }
 }

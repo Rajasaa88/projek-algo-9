@@ -49,14 +49,14 @@ public class Main {
 
         System.out.println("\nSelamat datang, " + player.name + "!");
         System.out.println("Petualanganmu dimulai di Desa Kecil...\n");
+        System.out.println("Tujuanmu adalah Istana Kerajaan 9 diatas bukit Blue Field\n");
+        System.out.println("Berhati-hatilah! tetap berbuat baik dan hadapi tantangan didepan!");
 
         while (true) {
             System.out.println("\n=== Menu Petualangan ===");
             System.out.println("1. Eksplorasi Quest");
-            System.out.println("2. Undo Langkah");
-            System.out.println("3. Redo Langkah");
-            System.out.println("4. Lihat Status Pemain");
-            System.out.println("5. Keluar dari Game");
+            System.out.println("2. Lihat Status Pemain");
+            System.out.println("3. Keluar dari Game");
             System.out.print("Pilih aksi: ");
             int aksi = scanner.nextInt();
             scanner.nextLine(); // Membersihkan buffer input
@@ -69,15 +69,9 @@ public class Main {
                     root.left.left = new Node("Melawan serigala hutan");
                     root.left.right = new Node("Mencari ramuan penyembuh");
                     root.right.right = new Node("Menemukan jalan menuju gerbang kerajaan");
-                    eksplorQuest(root, player, navigasi);
+                    eksplorQuest(root , player, navigasi);
                     break;
                 case 2:
-                    navigasi.undo();
-                    break;
-                case 3:
-                    navigasi.redo();
-                    break;
-                case 4:
                     System.out.println("\nStatus Pemain:");
                     System.out.println("Nama: " + player.name);
                     System.out.println("HP: " + player.hp);
@@ -86,7 +80,7 @@ public class Main {
                     System.out.println("Stamina: " + player.stamina);
                     System.out.println("Score: " + player.score);
                     break;
-                case 5:
+                case 3:
                     System.out.println("Terima kasih telah bermain. Sampai jumpa!");
                     return;
                 default:
@@ -98,33 +92,103 @@ public class Main {
     static void eksplorQuest(Node node, Player player, Navigasi navigasi) {
         if (node == null) return;
 
-        navigasi.move(node.quest); // Menambahkan quest ke undoStack
+        navigasi.move(node.quest);
         System.out.println("\nKamu menemukan quest: " + node.quest);
 
-        if (player.stamina <= 0) {
-            System.out.println("Stamina habis! Kamu harus istirahat dulu.");
-            return;
-        }
+        while (true) {
+            System.out.println("\nApa yang ingin kamu lakukan?");
+            System.out.println("1. Selesaikan quest");
+            System.out.println("2. Lewati quest");
+            System.out.println("3. Undo Langkah");
+            System.out.println("4. Redo Langkah");
+            System.out.println("5. Istirahat untuk memulihkan stamina");
+            System.out.print("Pilih opsi: ");
+            int pilihan = scanner.nextInt();
+            scanner.nextLine(); // Membersihkan input buffer
 
-        System.out.print("Selesaikan quest ini? (y/n): ");
-        String jawaban = scanner.nextLine();
+            if (pilihan == 1) { // Selesaikan quest
+                if (player.stamina > 0) {
+                    if (miniGame()) {
+                        System.out.println("Quest \"" + node.quest + "\" selesai!");
+                        player.completeQuest();
+                        player.gainXP(20);
+                        player.decreaseStamina();
 
-        if (jawaban.equalsIgnoreCase("y")) {
-            if (miniGame()) {
-                System.out.println("Quest \"" + node.quest + "\" selesai!");
-                player.completeQuest();
-                player.gainXP(20);
-                player.decreaseStamina();
+                        // Cek apakah ini adalah quest "Menemukan jalan menuju gerbang kerajaan"
+                        if (node.quest.equals("Menemukan jalan menuju gerbang kerajaan")) {
+                            System.out.println("\nKamu telah menemukan jalan menuju gerbang kerajaan!");
+                            System.out.println("Bersiaplah menghadapi Cerberus, penjaga gerbang kerajaan!");
+                            PenjagaKerajaan cerberus = new PenjagaKerajaan("Cerberus", 500, 50, 30);
+                            fight(player, cerberus);
+                            return; // Akhiri eksplorasi setelah melawan Cerberus
+                        } else {
+                            eksplorQuest(node.left, player, navigasi);
+                            eksplorQuest(node.right, player, navigasi);
+                        }
+                    } else {
+                        System.out.println("Kamu gagal menyelesaikan quest \"" + node.quest + "\".");
+                    }
+                    break; // Keluar dari loop setelah mencoba menyelesaikan quest
+                } else {
+                    System.out.println("Stamina habis! Kamu tidak bisa menyelesaikan quest ini.");
+                }
+            } else if (pilihan == 2) { // Lewati quest
+                System.out.println("Quest \"" + node.quest + "\" dilewati.");
                 eksplorQuest(node.left, player, navigasi);
                 eksplorQuest(node.right, player, navigasi);
+                break; // Keluar dari loop setelah melewati quest
+            } else if (pilihan == 3) { // Undo Langkah
+                navigasi.undo();
+            } else if (pilihan == 4) { // Redo Langkah
+                navigasi.redo();
+            } else if (pilihan == 5) { // Istirahat untuk memulihkan stamina
+                player.rest();
             } else {
-                System.out.println("Kamu gagal menyelesaikan quest \"" + node.quest + "\".");
+                System.out.println("Pilihan tidak valid. Silakan coba lagi.");
             }
-        } else {
-            System.out.println("Quest \"" + node.quest + "\" dilewati.");
         }
     }
-
+       
+    
+    static void fight(Player player, PenjagaKerajaan penjaga) {
+        System.out.println("\n=== Pertarungan dengan " + penjaga.nama + " ===");
+        penjaga.tampilkanStatus();
+    
+        while (penjaga.HP > 0 && player.isAlive()) {
+            System.out.println("\n=== Giliranmu ===");
+            System.out.println("1. Serang");
+            System.out.println("2. Bertahan");
+            System.out.println("3. Istirahat");
+            System.out.print("Pilih aksi: ");
+            int aksi = scanner.nextInt();
+    
+            if (aksi == 1) { // Serang
+                penjaga.HP -= player.attack();
+                System.out.println("Kamu menyerang " + penjaga.nama + "! HP Cerberus: " + penjaga.HP);
+            } else if (aksi == 2) { // Bertahan
+                player.defend();
+            } else if (aksi == 3) { // Istirahat
+                player.rest();
+            } else {
+                System.out.println("Pilihan tidak valid.");
+            }
+    
+            if (penjaga.HP > 0) {
+                int damage = penjaga.serangPemain(player.defense);
+                player.takeDamage(damage);
+            }
+        }
+    
+        if (player.hp <= 0) {
+            System.out.println(player.name + ", kamu kalah! " + penjaga.nama + " terlalu kuat...");
+            leaderboard.addScore(player.name, player.score);
+        } else if (penjaga.HP <= 0) {
+            System.out.println("\nSelamat! Kamu berhasil mengalahkan " + penjaga.nama + ".");
+            System.out.println(player.name + ", silakan masuk ke dalam Istana Kerajaan 9.");
+            leaderboard.addScore(player.name, player.score);
+        }
+    }
+    
     static boolean miniGame() {
         System.out.println("\n=== Mini-Game: Tebak Angka ===");
         int number = random.nextInt(10) + 1;
