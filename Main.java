@@ -4,6 +4,7 @@ public class Main {
     static Scanner scanner = new Scanner(System.in);
     static Random random = new Random();
     static Leaderboard leaderboard = new Leaderboard(); // Leaderboard global
+
     public static void main(String[] args) {
         System.out.println("  _____                          _   _                           ");
         System.out.println(" |  __ \\                        | \\ | |");
@@ -48,37 +49,58 @@ public class Main {
 
         System.out.println("\nSelamat datang, " + player.name + "!");
         System.out.println("Petualanganmu dimulai di Desa Kecil...\n");
-        System.out.println("Tujuanmu adalah Istana Kerajaan 9 diatas bukit Blue Field\n");
-        System.out.println("Berhati-hatilah! tetap berbuat baik dan hadapi tantangan didepan!\n");
 
-        Node root = new Node("Desa Darendale");
-        root.left = new Node("Membantu penduduk desa");
-        root.right = new Node("Mencari kunci gerbang taman istana");
-        root.left.left = new Node("Melawan serigala hutan");
-        root.left.right = new Node("Mencari ramuan penyembuh");
-        root.right.right = new Node("Menemukan jalan menuju gerbang kerajaan");
+        while (true) {
+            System.out.println("\n=== Menu Petualangan ===");
+            System.out.println("1. Eksplorasi Quest");
+            System.out.println("2. Undo Langkah");
+            System.out.println("3. Redo Langkah");
+            System.out.println("4. Lihat Status Pemain");
+            System.out.println("5. Keluar dari Game");
+            System.out.print("Pilih aksi: ");
+            int aksi = scanner.nextInt();
+            scanner.nextLine(); // Membersihkan buffer input
 
-        // Eksplorasi Quest
-        eksplorQuest(root, player, navigasi);
-
-        // Pertarungan dengan Penjaga Kerajaan
-        System.out.println("\nKamu menemukan Penjaga Kerajaan Cerberus!");
-        PenjagaKerajaan penjaga = new PenjagaKerajaan("Cerberus", 500, 50, 30);
-        fight(player, penjaga);
-
-        // Tambahkan skor ke leaderboard
-        if (player.score > 0) {
-            leaderboard.addScore(player.name, player.score);
+            switch (aksi) {
+                case 1:
+                    Node root = new Node("Desa Darendale");
+                    root.left = new Node("Membantu penduduk desa");
+                    root.right = new Node("Mencari kunci gerbang taman istana");
+                    root.left.left = new Node("Melawan serigala hutan");
+                    root.left.right = new Node("Mencari ramuan penyembuh");
+                    root.right.right = new Node("Menemukan jalan menuju gerbang kerajaan");
+                    eksplorQuest(root, player, navigasi);
+                    break;
+                case 2:
+                    navigasi.undo();
+                    break;
+                case 3:
+                    navigasi.redo();
+                    break;
+                case 4:
+                    System.out.println("\nStatus Pemain:");
+                    System.out.println("Nama: " + player.name);
+                    System.out.println("HP: " + player.hp);
+                    System.out.println("XP: " + player.xp);
+                    System.out.println("Level: " + player.level);
+                    System.out.println("Stamina: " + player.stamina);
+                    System.out.println("Score: " + player.score);
+                    break;
+                case 5:
+                    System.out.println("Terima kasih telah bermain. Sampai jumpa!");
+                    return;
+                default:
+                    System.out.println("Aksi tidak valid. Silakan pilih lagi.");
+            }
         }
-
-        System.out.println("\n=== Petualangan Berakhir ===");
     }
 
     static void eksplorQuest(Node node, Player player, Navigasi navigasi) {
         if (node == null) return;
 
-        navigasi.move(node.quest);
+        navigasi.move(node.quest); // Menambahkan quest ke undoStack
         System.out.println("\nKamu menemukan quest: " + node.quest);
+
         if (player.stamina <= 0) {
             System.out.println("Stamina habis! Kamu harus istirahat dulu.");
             return;
@@ -121,40 +143,5 @@ public class Main {
             }
         }
         return true;
-    }
-
-    static void fight(Player player, PenjagaKerajaan penjaga) {
-        System.out.println("\n=== Pertarungan dengan " + penjaga.nama + " ===");
-        penjaga.tampilkanStatus();
-
-        while (penjaga.HP > 0 && player.isAlive()) {
-            System.out.println("\n=== Giliranmu ===");
-            System.out.println("1. Serang");
-            System.out.println("2. Bertahan");
-            System.out.println("3. Istirahat");
-            System.out.print("Pilih aksi: ");
-            int aksi = scanner.nextInt();
-
-            if (aksi == 1) {
-                penjaga.HP -= player.attack();
-                System.out.println("Kamu menyerang " + penjaga.nama + "! HP Cerberus: " + penjaga.HP);
-            } else if (aksi == 2) {
-                player.defend();
-            } else {
-                player.rest();
-            }
-
-            if (penjaga.HP > 0) {
-                int damage = penjaga.serangPemain(player.defense);
-                player.takeDamage(damage);
-            }
-        }
-
-        if (player.hp <= 0) {
-            System.out.println(player.name + ", kamu kalah! " + penjaga.nama + " terlalu kuat...");
-        } else if (penjaga.HP <= 0) {
-            System.out.println("\nSelamat! Kamu berhasil mengalahkan " + penjaga.nama + ".");
-            System.out.println(player.name + "silahkan masuk kedalam Istana Kerajaan 9");
-        }
     }
 }
