@@ -29,7 +29,21 @@ public class Main {
                     startGame();
                     break;
                 case 2:
-                    leaderboard.display();
+                leaderboard.display();
+                System.out.println("1. Search Player");
+                System.out.println("2. Kembali ke Menu Utama");
+                System.out.print("Pilih opsi: ");
+                int Opsi = scanner.nextInt();
+                scanner.nextLine(); 
+                if (Opsi == 1) {
+                    System.out.print("Masukkan nama pemain yang ingin dicari: ");
+                    String playerName = scanner.nextLine();
+                    leaderboard.searchPlayer(playerName);
+                } else if (Opsi == 2) {
+
+                } else {
+                    System.out.println("Opsi tidak valid. Kembali ke menu utama.");
+                }
                     break;
                 case 3:
                     System.out.println("Terima kasih telah bermain pengelana sejati. Sampai jumpa!");

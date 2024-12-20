@@ -35,7 +35,6 @@ public class Leaderboard {
         return node;
     }
 
-    // Menampilkan leaderboard (urutan dari skor tertinggi ke terendah)
     public void display() {
         System.out.println("\n=== Leaderboard ===");
         if (root == null) {
@@ -49,9 +48,30 @@ public class Leaderboard {
 
     private void displayDescending(Node node) {
         if (node == null) return;
-        // Menampilkan dari subtree kanan ke kiri untuk urutan skor menurun
         displayDescending(node.left);
         System.out.printf("%-15s %-10d\n", node.name, node.score);
         displayDescending(node.right);
+    }
+
+    public void searchPlayer(String name) {
+        Node found = search(root, name);
+        if (found != null) {
+            System.out.println("Pemain ditemukan: " + found.name + " dengan skor: " + found.score);
+        } else {
+            System.out.println("Pemain dengan nama \"" + name + "\" tidak ditemukan.");
+        }
+    }
+
+    private Node search(Node node, String name) {
+        if (node == null) return null;
+
+        Node foundNode = search(node.right, name);
+        if (foundNode != null) return foundNode;
+
+        if (node.name.equals(name)) {
+            return node;
+        }
+
+        return search(node.left, name);
     }
 }
