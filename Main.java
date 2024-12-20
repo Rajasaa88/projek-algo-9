@@ -6,15 +6,15 @@ public class Main {
     static Leaderboard leaderboard = new Leaderboard(); // Leaderboard global
 
     public static void main(String[] args) {
-        System.out.println("  _____                          _   _                           ");
-        System.out.println(" |  __ \\                        | \\ | |");
-        System.out.println(" | |__) |___  __ _ _ __   __ _  |  \\| | _____   _____ _ __ ___  ");
-        System.out.println(" |  _  // _ \\/ _` | '_ \\ / _` | | . ` |/ _ \\ \\ / / _ \\ '_ ` _ \\");
-        System.out.println(" | | \\ \\  __/ (_| | | | | (_| | | |\\  | (_) \\ V /  __/ | | | | | ");
-        System.out.println(" |_|  \\_\\___|\\__, |_| |_|\\__,_| |_| \\_|\\___/ \\_/ \\___|_| |_| |_| ");
-        System.out.println("              __/ |                                              ");
-        System.out.println("             |___/                                               ");
-        System.out.println("");
+        System.out.println("==============================================================================================");
+        System.out.println("██████╗ ███████╗ ██████╗ ███╗   ██╗ █████╗     ███╗   ██╗ ██████╗ ██╗   ██╗███████╗███╗   ███╗");
+        System.out.println("██╔══██╗██╔════╝██╔════╝ ████╗  ██║██╔══██╗    ████╗  ██║██╔═══██╗██║   ██║██╔════╝████╗ ████║");
+        System.out.println("██████╔╝█████╗  ██║  ███╗██╔██╗ ██║███████║    ██╔██╗ ██║██║   ██║██║   ██║█████╗  ██╔████╔██║");
+        System.out.println("██╔══██╗██╔══╝  ██║   ██║██║╚██╗██║██╔══██║    ██║╚██╗██║██║   ██║╚██╗ ██╔╝██╔══╝  ██║╚██╔╝██║");
+        System.out.println("██║  ██║███████╗╚██████╔╝██║ ╚████║██║  ██║    ██║ ╚████║╚██████╔╝ ╚████╔╝ ███████╗██║ ╚═╝ ██║");
+        System.out.println("╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝    ╚═╝  ╚═══╝ ╚═════╝   ╚═══╝  ╚══════╝╚═╝     ╚═╝");
+        System.out.println("                                        Kelompok 9                                       ");   
+        System.out.println("==============================================================================================");
         while (true) {
             System.out.println("\n=== SELAMAT DATANG DI GAME PETUALANGAN REGNA NOVEM ===");
             System.out.println("1. Start Game");
