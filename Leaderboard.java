@@ -38,7 +38,7 @@ public class Leaderboard {
     public void display() {
         System.out.println("\n=== Leaderboard ===");
         if (root == null) {
-            System.out.println("Belum ada skor yang tercatat.");
+            System.out.println("Belum ada skor yang tercatat.\n");
         } else {
             System.out.printf("%-15s %-10s\n", "Nama", "Skor");
             System.out.println("===============================");
@@ -56,9 +56,9 @@ public class Leaderboard {
     public void searchPlayer(String name) {
         Node found = search(root, name);
         if (found != null) {
-            System.out.println("Pemain ditemukan: " + found.name + " dengan skor: " + found.score);
+            System.out.println("Pemain ditemukan: " + found.name + " dengan skor: " + found.score + "\n");
         } else {
-            System.out.println("Pemain dengan nama \"" + name + "\" tidak ditemukan.");
+            System.out.println("Pemain dengan nama \"" + name + "\" tidak ditemukan.\n");
         }
     }
 
